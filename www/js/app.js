@@ -141,7 +141,7 @@
     // TODO: In a future release, this should probably read from stored user config.
     console.log('Initializating PazzApp');
     
-    pazzApp.state.config.selectedPasswordFormat = pazzApp.state.options.passwordFormatOptions.Digits9999;
+    pazzApp.state.config.selectedPasswordFormat = pazzApp.state.options.passwordFormatOptions.Cvcvcv99;
     
     //this.generatePasswords();
   };
@@ -190,14 +190,17 @@
   });
   
   pazzApp.controller('PasswordsTabCtrl', function($scope) {
-    $scope.regeneratePasswords = function () {
+    $scope.doRefresh = function () {
       pazzApp.generatePasswords();
       
       $scope.passwords = pazzApp.state.passwords;
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     };
     
     if (!pazzApp.state.passwords.length) {
-      $scope.regeneratePasswords();
+      $scope.doRefresh();
     }
     
     $scope.passwords = pazzApp.state.passwords;

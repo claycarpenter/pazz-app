@@ -15,7 +15,7 @@
   </head>
 
   <body ng-app="pazzApp">
-    <ion-nav-bar class="nav-title-slide-ios7 bar-energized">
+    <ion-nav-bar class="nav-title-slide-ios7 bar-assertive">
       <ion-nav-back-button class="button-icon ion-arrow-left-c">
       </ion-nav-back-button>
     </ion-nav-bar>
@@ -23,7 +23,7 @@
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
     
     <script id="tabs.html" type="text/ng-template">
-      <ion-tabs class="tabs-icon-top tabs-energized">
+      <ion-tabs class="tabs-icon-top tabs-assertive">
 
         <ion-tab title="Passwords" icon="ion-clipboard" ui-sref="tabs.passwords">
           <ion-nav-view name="passwords-tab"></ion-nav-view>
@@ -39,17 +39,8 @@
     <script id="passwords.html" type="text/ng-template">
       <ion-view title="Passwords">
         <ion-content class="padding">
-            <button 
-              class="button icon icon-left ion-refresh" 
-              ng-click="regeneratePasswords()">
-              Regenerate
-            </button>
+            <ion-refresher on-refresh="doRefresh()"></ion-refresher>
             
-            <button 
-              class="button icon icon-left ion-paper-airplane"">
-              Export
-            </button>
-         
             <ion-list>
               <ion-item ng-repeat="password in passwords" class="password-item">
                 {{password}}
