@@ -1,34 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
 
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then remove the CSS include above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-    <!-- your app's js -->
+      
+    <script
+      src="lib/ionic/js/ionic.bundle.js"></script>
+    
+    <!-- App logic. -->
     <script src="js/app.js"></script>
   </head>
 
-  <body ng-app="starter">
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content class="has-header">
-      </ion-content>
-    </ion-pane>
+  <body ng-app="pazzApp">
+    <ion-nav-bar class="nav-title-slide-ios7 bar-energized">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    
+    <script id="tabs.html" type="text/ng-template">
+      <ion-tabs class="tabs-icon-top tabs-energized">
+
+        <ion-tab title="Passwords" icon="ion-clipboard" ui-sref="tabs.passwords">
+          <ion-nav-view name="passwords-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Settings" icon="ion-settings" ui-sref="tabs.settings">
+          <ion-nav-view name="settings-tab"></ion-nav-view>
+        </ion-tab>
+
+      </ion-tabs>
+    </script>
+    
+    <script id="passwords.html" type="text/ng-template">
+      <ion-view title="Passwords">
+        <ion-content class="padding">
+            <button 
+              class="button icon icon-left ion-refresh" 
+              ng-click="regeneratePasswords()">
+              Regenerate
+            </button>
+            
+            <button 
+              class="button icon icon-left ion-paper-airplane"">
+              Export
+            </button>
+         
+            <ion-list>
+              <ion-item ng-repeat="password in passwords" class="password-item">
+                {{password}}
+              </ion-item>
+            </ion-list>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    <script id="settings.html" type="text/ng-template">
+      <ion-view title="Settings">
+        <ion-content class="padding">
+          <div class="list">
+            <div class="item item-divider">
+              Password Format
+            </div>
+            <ion-radio 
+              ng-repeat="passwordFormat in data.passwordFormatOptions"
+              ng-value="passwordFormat"
+              ng-model="data.passwordFormatSelected"
+              ng-change="settingsChange()">
+              {{ passwordFormat.name }}
+            </ion-radio>
+            
+            <div class="item item-divider" style="margin-top: 20px;">
+              Password Batch Size
+            </div>
+            <div class="item">
+              <input 
+                type="number" 
+                ng-model="data.passwordBatchSize"
+                ng-change="settingsChange()">
+            </div>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
   </body>
+
 </html>
