@@ -189,7 +189,9 @@
      //$urlRouterProvider.otherwise("/tab/settings");
   });
   
-  pazzApp.controller('PasswordsTabCtrl', function($scope) {
+  pazzApp.controller('PasswordsTabCtrl', function($rootScope, $scope) {
+    $rootScope.tabAnimation = 'slide-right-left-ios7';
+      
     $scope.doRefresh = function () {
       pazzApp.generatePasswords();
       
@@ -206,7 +208,9 @@
     $scope.passwords = pazzApp.state.passwords;
   });
   
-  pazzApp.controller('SettingsTabCtrl', function($scope) {
+  pazzApp.controller('SettingsTabCtrl', function($rootScope, $scope) {
+    $rootScope.tabAnimation = 'slide-left-right-ios7';
+      
     // Copy the app state variables into the local scope.
     $scope.data = {
       passwordFormatOptions: pazzApp.state.options.passwordFormatOptions,

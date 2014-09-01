@@ -2,7 +2,9 @@
 <html>
 
   <head>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta 
+        name="viewport" 
+        content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -16,14 +18,13 @@
 
   <body ng-app="pazzApp">
     <ion-nav-bar class="nav-title-slide-ios7 bar-assertive">
-      <ion-nav-back-button class="button-icon ion-arrow-left-c">
-      </ion-nav-back-button>
     </ion-nav-bar>
     
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
     
     <script id="tabs.html" type="text/ng-template">
-      <ion-tabs class="tabs-icon-top tabs-assertive">
+      <ion-tabs 
+        class="tabs-icon-top tabs-assertive {{tabAnimation}}">
 
         <ion-tab title="Passwords" icon="ion-clipboard" ui-sref="tabs.passwords">
           <ion-nav-view name="passwords-tab"></ion-nav-view>
