@@ -89,6 +89,8 @@ $default-font: $terminal-font-face;
 
         .tab-item {
             max-width: none;
+            
+            color: darken($normal-text, 10%);
         }
         
         .tab-item-active {
@@ -112,7 +114,7 @@ $default-font: $terminal-font-face;
             letter-spacing: 8px;
             
             .line-indicator {
-                color: darken($normal-text, 20%);
+                color: darken($normal-text, 30%);
                 
                 font-size: 28px;
             }
