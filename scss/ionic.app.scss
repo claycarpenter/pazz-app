@@ -1,0 +1,121 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+
+$energized: #00FF00;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+$base-background-color: #222222;
+$normal-text: #00FF00;
+$terminal-font-face: 'Register';
+$default-font: $terminal-font-face;
+
+// Font family!
+@font-face {
+  font-family: $default-font;
+  src: url('../fonts/#{$default-font}.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('../fonts/#{$default-font}.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+.terminal {
+    font-family: $default-font;
+    
+    .interlace {
+        background: url(../img/interlace.png) top left repeat, rgba(255, 255, 255, 0);
+        left: 0;
+        top: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        z-index: 100;
+        pointer-events: none;
+        
+        display: none;
+    }
+    
+    ion-view {
+        background-color: $base-background-color;    
+    }
+    
+    ion-nav-bar {
+        .bar-header {
+            background-color: $base-background-color;
+
+            // Necessary to remove the bottom border from the header bars?
+            background-image: none;
+        }
+        
+        .title {
+            font-size: 36px;
+            text-transform: uppercase;
+            color: $normal-text;
+            
+            
+        }
+    }
+
+    .tab-nav.tabs {
+        // Remove the top border from the tabs section.
+        background-image: none;
+        background-color: $base-background-color;
+        
+        .tab-title {
+            font-size: 26px;
+            text-transform: uppercase;
+            line-height: 50px;
+            
+            font-family: $default-font;
+        }
+
+        .tab-item {
+            max-width: none;
+        }
+        
+        .tab-item-active {
+            color: $normal-text;
+        }
+    }
+    
+    .list.passwords {
+        .item {
+            background: $base-background-color;
+            //background: lighten( $base-background-color, 05% );
+            
+            color: $normal-text;
+            
+            border: none;
+            
+            font-size: 32px;
+            
+            margin: 25px 0px;
+            
+            letter-spacing: 8px;
+            
+            .line-indicator {
+                color: darken($normal-text, 20%);
+                
+                font-size: 28px;
+            }
+        }
+    }
+}
