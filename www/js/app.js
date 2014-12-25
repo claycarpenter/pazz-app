@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-passwords': {
         templateUrl: 'templates/tab-passwords.html',
-        controller: 'DashCtrl'
+        controller: 'PasswordCtrl'
       }
     }
   })
