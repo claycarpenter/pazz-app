@@ -98,8 +98,8 @@ $default-font: $terminal-font-face;
         }
     }
     
-    .list.passwords {
-        .item {
+    ion-list.passwords {
+        ion-item {
             background: $base-background-color;
             //background: lighten( $base-background-color, 05% );
             
