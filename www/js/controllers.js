@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('pazz.app.controllers', [])
 
 .controller('PasswordsCtrl', function($scope) {
     var data = $scope.data = {};
