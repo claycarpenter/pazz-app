@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('PasswordCtrl', function($scope) {
+.controller('PasswordsCtrl', function($scope) {
     var data = $scope.data = {};
     
     data.passwords = [
@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
     ];
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
