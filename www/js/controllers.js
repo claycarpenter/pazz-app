@@ -15,6 +15,23 @@ angular.module('pazz.app.controllers', [])
 
 .controller('SettingsCtrl', function($scope) {
   $scope.settings = {
-    enableFriends: true
+      passwordFormatOptions: {
+        Cvccvc99: {
+          name: "CVCCVC99",
+          generator: null
+        },
+        Cvcvcv99: {
+          name: "CVCVCV99",
+          generator: null
+        },
+        Digits9999: {
+          name: "9999",
+          generator: null
+        },
+        Digits999999: {
+          name: "999999",
+          generator: null
+        }
+      }
   };
 });
