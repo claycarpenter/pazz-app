@@ -14,30 +14,9 @@ angular.module('pazz.app.controllers', [])
 })
 
 .controller('SettingsCtrl', function($scope) {
-  $scope.settings = {
-      passwordFormatOptions: {
-        Cvccvc99: {
-          name: "CVCCVC99",
-          generator: null,
-        isSelected: false
-        },
-        Cvcvcv99: {
-          name: "CVCVCV99",
-          generator: null,
-        isSelected: true
-        },
-        Digits9999: {
-          name: "9999",
-          generator: null,
-        isSelected: false
-        },
-        Digits999999: {
-          name: "999999",
-          generator: null,
-        isSelected: false
-        }
-      }
-  };
+  var pazzAppModule = angular.module('pazz.app');
+    
+  $scope.settings = pazzAppModule.settings;
     
     $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
         for (passwordFormatOptionName in $scope.settings.passwordFormatOptions) {

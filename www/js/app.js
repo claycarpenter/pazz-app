@@ -16,6 +16,37 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
   });
 })
 
+.run(function() {
+  console.log('pazz.app run - custom');  
+    
+    var pazzAppModule = angular.module('pazz.app');
+    
+    pazzAppModule.settings = {
+      passwordFormatOptions: {
+        Cvccvc99: {
+          name: "CVCCVC99",
+          generator: null,
+        isSelected: false
+        },
+        Cvcvcv99: {
+          name: "CVCVCV99",
+          generator: null,
+        isSelected: true
+        },
+        Digits9999: {
+          name: "9999",
+          generator: null,
+        isSelected: false
+        },
+        Digits999999: {
+          name: "999999",
+          generator: null,
+        isSelected: false
+        }
+      }
+  };
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
