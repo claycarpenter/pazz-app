@@ -24,17 +24,26 @@ $energized: #00FF00;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+// Colors
 $base-background-color: #222222;
 $normal-text: #00FF00;
+
+// Font face details
 $terminal-font-face: 'Register';
 $default-font: $terminal-font-face;
 
-// Font family!
 @font-face {
   font-family: $default-font;
   src: url('../fonts/#{$default-font}.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
        url('../fonts/#{$default-font}.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
+
+// Font sizes
+$normal-font-size: 22px;
+$password-font-size: 32px;
+$screen-title-font-size: 36px;
+$tab-title-font-size: 26px;
+$password-line-indicator-font-size: 28px;
 
 .terminal {
     font-family: $default-font;
@@ -66,7 +75,7 @@ $default-font: $terminal-font-face;
         }
         
         .title {
-            font-size: 36px;
+            font-size: $screen-title-font-size;
             text-transform: uppercase;
             color: $normal-text;
             
@@ -80,7 +89,7 @@ $default-font: $terminal-font-face;
         background-color: $base-background-color;
         
         .tab-title {
-            font-size: 26px;
+            font-size: $tab-title-font-size;
             text-transform: uppercase;
             line-height: 50px;
             
@@ -111,7 +120,7 @@ $default-font: $terminal-font-face;
     
     ion-list.passwords {
         ion-item.password {
-            font-size: 32px;
+            font-size: $password-font-size;
             
             margin: 25px 0;
             
@@ -120,7 +129,7 @@ $default-font: $terminal-font-face;
             .line-indicator {
                 color: darken($normal-text, 30%);
                 
-                font-size: 28px;
+                font-size: $password-line-indicator-font-size;
             }
         }
     }
@@ -129,7 +138,7 @@ $default-font: $terminal-font-face;
         ion-item {
             border: none;
             
-            font-size: 22px;
+            font-size: $normal-font-size;
 
             background: $base-background-color;
 
@@ -137,7 +146,7 @@ $default-font: $terminal-font-face;
         }
         
         ion-item.item-divider {
-            font-size: 22px;
+            font-size: $normal-font-size;
             
             margin: 25px 0 5px 0;
         }
