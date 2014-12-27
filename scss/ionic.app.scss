@@ -45,6 +45,8 @@ $screen-title-font-size: 36px;
 $tab-title-font-size: 26px;
 $password-line-indicator-font-size: 28px;
 
+$text-shadow-blur: 15px;
+
 .terminal {
     font-family: $default-font;
     
@@ -79,7 +81,7 @@ $password-line-indicator-font-size: 28px;
             text-transform: uppercase;
             color: $normal-text;
             
-            
+            text-shadow: 0 0 $text-shadow-blur darken($normal-text, 20%);
         }
     }
 
@@ -94,6 +96,8 @@ $password-line-indicator-font-size: 28px;
             line-height: 50px;
             
             font-family: $default-font;
+            
+            text-shadow: 0 0 $text-shadow-blur darken($normal-text, 20%);
         }
 
         .tab-item {
@@ -126,10 +130,14 @@ $password-line-indicator-font-size: 28px;
             
             letter-spacing: 8px;
             
+            text-shadow: 0 0 $text-shadow-blur darken($normal-text, 20%);
+            
             .line-indicator {
                 color: darken($normal-text, 30%);
                 
                 font-size: $password-line-indicator-font-size;
+                
+                text-shadow: 0 0 $text-shadow-blur darken($normal-text, 40%);
             }
         }
     }
@@ -143,6 +151,8 @@ $password-line-indicator-font-size: 28px;
             background: $base-background-color;
 
             color: $normal-text;
+            
+            text-shadow: 0 0 $text-shadow-blur darken($normal-text, 20%);
         }
         
         ion-item.item-divider {
