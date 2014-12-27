@@ -39,7 +39,7 @@ angular.module('pazz.app.controllers', [])
       }
   };
     
-    $scope.updateRadio = function(selectedPasswordFormat) {
+    $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
         for (passwordFormatOptionName in $scope.settings.passwordFormatOptions) {
             var passwordFormatOption = $scope.settings.passwordFormatOptions[passwordFormatOptionName];
             
