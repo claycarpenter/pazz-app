@@ -98,18 +98,22 @@ $default-font: $terminal-font-face;
         }
     }
     
-    ion-list.passwords {
+    ion-list {
         ion-item {
             background: $base-background-color;
-            //background: lighten( $base-background-color, 05% );
             
             color: $normal-text;
             
             border: none;
-            
+        }
+        
+    }
+    
+    ion-list.passwords {
+        ion-item.password {
             font-size: 32px;
             
-            margin: 25px 0px;
+            margin: 25px 0;
             
             letter-spacing: 8px;
             
@@ -118,6 +122,24 @@ $default-font: $terminal-font-face;
                 
                 font-size: 28px;
             }
+        }
+    }
+    
+    ion-list.settings {
+        ion-item {
+            border: none;
+            
+            font-size: 22px;
+
+            background: $base-background-color;
+
+            color: $normal-text;
+        }
+        
+        ion-item.item-divider {
+            font-size: 22px;
+            
+            margin: 25px 0 5px 0;
         }
     }
 }

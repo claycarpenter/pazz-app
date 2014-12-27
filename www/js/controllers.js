@@ -18,20 +18,34 @@ angular.module('pazz.app.controllers', [])
       passwordFormatOptions: {
         Cvccvc99: {
           name: "CVCCVC99",
-          generator: null
+          generator: null,
+        isSelected: false
         },
         Cvcvcv99: {
           name: "CVCVCV99",
-          generator: null
+          generator: null,
+        isSelected: true
         },
         Digits9999: {
           name: "9999",
-          generator: null
+          generator: null,
+        isSelected: false
         },
         Digits999999: {
           name: "999999",
-          generator: null
+          generator: null,
+        isSelected: false
         }
       }
   };
+    
+    $scope.updateRadio = function(selectedPasswordFormat) {
+        for (passwordFormatOptionName in $scope.settings.passwordFormatOptions) {
+            var passwordFormatOption = $scope.settings.passwordFormatOptions[passwordFormatOptionName];
+            
+            passwordFormatOption.isSelected = false;    
+        }
+        
+        selectedPasswordFormat.isSelected = true;
+    }
 });

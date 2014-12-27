@@ -4,14 +4,12 @@
       <ion-item class="item-divider">
         Password Format
       </ion-item>
-      <ion-item class="">
-        <ion-radio 
-            ng-repeat="passwordFormat in settings.passwordFormatOptions"
-            ng-value="passwordFormat"
-            ng-model="data.passwordFormatSelected"
-            ng-change="settingsChange()">
-            {{ passwordFormat.name }}
-        </ion-radio>
+      <ion-item class=""         
+        ng-repeat="passwordFormat in settings.passwordFormatOptions" ng-click="updateRadio(passwordFormat)">
+        <span>[{{ passwordFormat.isSelected ? "O" : " " }}]</span>
+        <span>
+          {{ passwordFormat.name }}
+        </span>
       </ion-item>
     </ion-list>
   </ion-content>
