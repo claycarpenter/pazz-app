@@ -16,15 +16,14 @@ angular.module('pazz.app.controllers', [])
 .controller('SettingsCtrl', function($scope) {
   var pazzAppModule = angular.module('pazz.app');
     
-  $scope.settings = pazzAppModule.settings;
+  $scope.data = {
+      passwordFormatOptions: pazzAppModule.settings.passwordFormatOptions,
+      selectedPasswordFormat: pazzAppModule.state.selectedPasswordFormat
+  };
     
     $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
-        for (passwordFormatOptionName in $scope.settings.passwordFormatOptions) {
-            var passwordFormatOption = $scope.settings.passwordFormatOptions[passwordFormatOptionName];
-            
-            passwordFormatOption.isSelected = false;    
-        }
+        $scope.data.selectedPasswordFormat = selectedPasswordFormat;    
         
-        selectedPasswordFormat.isSelected = true;
+        pazzAppModule.state.selectedPasswordFormat = $scope.data.selectedPasswordFormat;
     }
 });

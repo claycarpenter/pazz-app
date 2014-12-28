@@ -5,8 +5,8 @@
         Password Format
       </ion-item>
       <ion-item class=""         
-        ng-repeat="passwordFormat in settings.passwordFormatOptions" ng-click="onClickPasswordFormatRadio(passwordFormat)">
-        <span>[{{ passwordFormat.isSelected ? "O" : " " }}]</span>
+        ng-repeat="passwordFormat in data.passwordFormatOptions" ng-click="onClickPasswordFormatRadio(passwordFormat)">
+        <span>[{{ passwordFormat == data.selectedPasswordFormat ? "O" : " " }}]</span>
         <span>
           {{ passwordFormat.name }}
         </span>
