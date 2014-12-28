@@ -50,20 +50,6 @@ $text-shadow-blur: 15px;
 .terminal {
     font-family: $default-font;
     
-    .interlace {
-        background: url(../img/interlace.png) top left repeat, rgba(255, 255, 255, 0);
-        left: 0;
-        top: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0.2;
-        z-index: 100;
-        pointer-events: none;
-        
-        display: none;
-    }
-    
     ion-view {
         background-color: $base-background-color;    
     }
