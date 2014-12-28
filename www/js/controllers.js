@@ -20,5 +20,7 @@ angular.module('pazz.app.controllers', [])
         $scope.data.selectedPasswordFormat = selectedPasswordFormat;    
         
         pazzAppModule.state.selectedPasswordFormat = $scope.data.selectedPasswordFormat;
+        
+        pazzAppModule.refreshPasswords();
     }
 });

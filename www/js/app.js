@@ -17,8 +17,6 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
 })
 
 .run(function() {
-  console.log('pazz.app run - custom');  
-    
     var pazzAppModule = angular.module('pazz.app');
     
     var CHARSETS = {
@@ -146,15 +144,23 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
     pazzAppModule.state = {
         selectedPasswordFormat: pazzAppModule.settings.passwordFormatOptions.Cvcvcv99,
         batchSize: 6,
-        passwords: [
-            "Curano56",
-            "Togere34",
-            "Wozuke14",
-            "Saderi86",
-            "Nadoro01",
-            "Bareti01"
-        ]
+        passwords: []
     };
+    
+    pazzAppModule.refreshPasswords = function() {
+        pazzAppModule.state.passwords.splice(0, pazzAppModule.state.passwords.length);    
+        
+        for (var i = 0; i < pazzAppModule.state.batchSize; i++) {
+            var currentPasswordGenerator = 
+                pazzAppModule.state.selectedPasswordFormat.generator;
+            
+            pazzAppModule.state.passwords.push(
+                currentPasswordGenerator.generateRandomPassword());
+        }
+        
+    };
+    
+    pazzAppModule.refreshPasswords();
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
