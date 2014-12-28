@@ -6,6 +6,15 @@ angular.module('pazz.app.controllers', [])
     var pazzAppModule = angular.module('pazz.app');
     
     data.passwords = pazzAppModule.state.passwords;
+    
+    $scope.doRefresh = function () {
+        // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+        
+        pazzAppModule.refreshPasswords();    
+        
+        data.passwords = pazzAppModule.state.passwords;
+    }
 })
 
 .controller('SettingsCtrl', function($scope) {
