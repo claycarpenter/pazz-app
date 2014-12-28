@@ -46,21 +46,33 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
         return Utils.getRandomArrayValue(CHARSETS.digits);
       };
     },
-    RandomVowelGenerator: function () {
+    RandomVowelGenerator: function (isUppercase) {
       this.generate = function () {
-        return Utils.getRandomArrayValue(CHARSETS.vowels);
+          var newCharacter = Utils.getRandomArrayValue(CHARSETS.vowels);
+          
+          if (isUppercase) {
+            newCharacter = newCharacter.toUpperCase();
+          }
+          
+          return newCharacter;
       };
     },
-    RandomConsonantGenerator: function () {
+    RandomConsonantGenerator: function (isUppercase) {
       this.generate = function () {
-        return Utils.getRandomArrayValue(CHARSETS.consonants);
+          var newCharacter = Utils.getRandomArrayValue(CHARSETS.consonants);
+          
+          if (isUppercase) {
+            newCharacter = newCharacter.toUpperCase();
+          }
+          
+          return newCharacter;
       };
     }
   };
 
   var Cvccvc99Generator = function () {
     var characterGenerators = [
-      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(true),
       new CharacterGenerators.RandomVowelGenerator(),
       new CharacterGenerators.RandomConsonantGenerator(),
       new CharacterGenerators.RandomConsonantGenerator(),
@@ -77,7 +89,7 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
 
   var Cvcvcv99Generator = function () {
     var characterGenerators = [
-      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(true),
       new CharacterGenerators.RandomVowelGenerator(),
       new CharacterGenerators.RandomConsonantGenerator(),
       new CharacterGenerators.RandomVowelGenerator(),
