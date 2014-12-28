@@ -144,7 +144,16 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
     };
     
     pazzAppModule.state = {
-        selectedPasswordFormat: pazzAppModule.settings.passwordFormatOptions.Cvcvcv99
+        selectedPasswordFormat: pazzAppModule.settings.passwordFormatOptions.Cvcvcv99,
+        batchSize: 6,
+        passwords: [
+            "Curano56",
+            "Togere34",
+            "Wozuke14",
+            "Saderi86",
+            "Nadoro01",
+            "Bareti01"
+        ]
     };
 })
 
