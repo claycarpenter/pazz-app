@@ -39,11 +39,11 @@ $default-font: $terminal-font-face;
 }
 
 // Font sizes
-$normal-font-size: 22px;
-$password-font-size: 22px;
-$screen-title-font-size: 36px;
-$tab-title-font-size: 26px;
-$password-line-indicator-font-size: 22px;
+$normal-font-size: 26px;
+$password-font-size: $normal-font-size;
+$screen-title-font-size: 32px;
+$tab-title-font-size: 22px;
+$password-line-indicator-font-size: 24px;
 
 $text-shadow-blur: 15px;
 
