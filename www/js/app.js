@@ -21,30 +21,131 @@ angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'
     
     var pazzAppModule = angular.module('pazz.app');
     
+    var CHARSETS = {
+    consonants: ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z'],
+    vowels: ['a','e','i','o','u'],
+    digits: ['0','1','2','3','4','5','6','7','8','9']
+  }
+    
+  var Utils = {
+    getRandomArrayValue: function (valuesArray)  {
+      return valuesArray[Math.floor(Math.random() * valuesArray.length)];
+    },
+    generateRandomPassword: function (charGenerators) {
+      var randomPassword = '';  
+      
+      for (var i = 0; i < charGenerators.length; i++) {
+        randomPassword += charGenerators[i].generate();
+      }
+      
+      return randomPassword;
+    }
+  };
+  
+  var CharacterGenerators = {
+    RandomDigitGenerator: function () {
+      this.generate = function () {
+        return Utils.getRandomArrayValue(CHARSETS.digits);
+      };
+    },
+    RandomVowelGenerator: function () {
+      this.generate = function () {
+        return Utils.getRandomArrayValue(CHARSETS.vowels);
+      };
+    },
+    RandomConsonantGenerator: function () {
+      this.generate = function () {
+        return Utils.getRandomArrayValue(CHARSETS.consonants);
+      };
+    }
+  };
+
+  var Cvccvc99Generator = function () {
+    var characterGenerators = [
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomVowelGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomVowelGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator()
+    ];
+    
+    this.generateRandomPassword = function () {
+      return Utils.generateRandomPassword(characterGenerators); 
+    };
+  };
+
+  var Cvcvcv99Generator = function () {
+    var characterGenerators = [
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomVowelGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomVowelGenerator(),
+      new CharacterGenerators.RandomConsonantGenerator(),
+      new CharacterGenerators.RandomVowelGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator()
+    ];
+    
+    this.generateRandomPassword = function () {
+      return Utils.generateRandomPassword(characterGenerators); 
+    };
+  };
+
+  var Digits9999Generator = function () {
+    var characterGenerators = [
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator()
+    ];
+    
+    this.generateRandomPassword = function () {
+      return Utils.generateRandomPassword(characterGenerators); 
+    };
+  };
+
+  var Digits999999Generator = function () {
+    var characterGenerators = [
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator(),
+      new CharacterGenerators.RandomDigitGenerator()
+    ];
+    
+    this.generateRandomPassword = function () {
+      return Utils.generateRandomPassword(characterGenerators); 
+    };
+  };
+    
     pazzAppModule.settings = {
       passwordFormatOptions: {
         Cvccvc99: {
           name: "CVCCVC99",
-          generator: null,
-        isSelected: false
+          generator: new Cvccvc99Generator()
         },
         Cvcvcv99: {
           name: "CVCVCV99",
-          generator: null,
-        isSelected: true
+          generator: new Cvcvcv99Generator()
         },
         Digits9999: {
           name: "9999",
-          generator: null,
-        isSelected: false
+          generator: new Digits9999Generator()
         },
         Digits999999: {
           name: "999999",
-          generator: null,
-        isSelected: false
+          generator: new Digits999999Generator()
         }
       }
-  };
+    };
+    
+    pazzAppModule.state = {
+        selectedPasswordFormat: pazzAppModule.settings.passwordFormatOptions.Cvcvcv99
+    };
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
