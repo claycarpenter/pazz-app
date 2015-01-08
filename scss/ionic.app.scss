@@ -47,6 +47,11 @@ $password-line-indicator-font-size: 24px;
 
 $text-shadow-blur: 15px;
 
+html {
+    // Ensure entire app has a default background color.
+    background-color: $base-background-color;
+}
+
 .terminal {
     font-family: $default-font;
     
