@@ -55,7 +55,11 @@ html {
 .terminal {
     font-family: $default-font;
     
-    ion-view {
+    // Reset views to have base background color. 
+    // Overrides Ionic default of white (#fff).
+    ion-view,
+    .view,
+    .pane {
         background-color: $base-background-color;    
     }
     
@@ -76,7 +80,7 @@ html {
         }
     }
 
-     .tab-nav.tabs,
+    .tab-nav.tabs,
     .tabs-striped .tab-nav.tabs {
         border: none;
         
@@ -98,12 +102,18 @@ html {
             max-width: none;
             
             color: darken($normal-text, 10%);
+            
+            &.tab-item-active,
+            &.active,
+            &.activated {
+                color: $normal-text;
+
+                border: none;
+            }
         }
         
+        
         .tab-item-active {
-            color: $normal-text;
-            
-            border: none;
         }
     }
     
