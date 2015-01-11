@@ -12,4 +12,9 @@ gen
 out
 # Gradle builds
 /build
+
+# Ionic/Cordova resources
 assets/www
+
+# Android platform resources
+res
