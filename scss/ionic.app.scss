@@ -76,7 +76,9 @@ html {
         }
     }
 
-    .tab-nav.tabs {
+    .tabs-striped .tab-nav.tabs {
+        border: none;
+        
         // Remove the top border from the tabs section.
         background-image: none;
         background-color: $base-background-color;
@@ -99,6 +101,8 @@ html {
         
         .tab-item-active {
             color: $normal-text;
+            
+            border: none;
         }
     }
     
