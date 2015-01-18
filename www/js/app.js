@@ -1,6 +1,6 @@
 // Pazz, an Ionic-based Mobile App
 
-angular.module('pazz.app', ['ionic', 'pazz.app.controllers', 'pazz.app.services'])
+angular.module('pazz.app', ['ionic', 'pazz.app.services', 'pazz.app.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
