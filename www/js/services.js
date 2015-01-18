@@ -30,7 +30,7 @@
     servicesModule.service('randomDigitService', 
         ['digitCharSet', RandomCharacterService]);
     
-    var PasswordGeneratorService = function() {
+    var PasswordService = function() {
         var passwords = [
             'BaCeDi11',
             'BaCeDi22',
@@ -56,5 +56,5 @@
         this.generateNewPasswords = generateNewPasswords;
     }
     
-    servicesModule.service('passwordGeneratorService', PasswordGeneratorService);
+    servicesModule.service('passwordService', PasswordService);
 })();
