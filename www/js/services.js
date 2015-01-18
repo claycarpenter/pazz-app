@@ -30,10 +30,9 @@
     servicesModule.service('randomDigitService', 
         ['digitCharSet', RandomCharacterService]);
     
-    var PazzConfigService = function() {
-        var passwordsCount = 16;
-        
-        var passwordGenerator = new function () {
+    var PasswordGeneratorsService = function() {
+                
+        var PasswordGenerator = function () {
             this.generateRandomPassword = function() {
                 return "BaCeDi" + 
                     Math.floor(Math.random() * 10).toString() +
@@ -43,8 +42,22 @@
             };
         };
         
+        this.getById = function(generatorId) {
+            return new PasswordGenerator();  
+        };
+    };
+    
+    servicesModule.service('passwordGeneratorsService', 
+        [PasswordGeneratorsService]);
+    
+    var PazzConfigService = function(passwordGeneratorsService) {
+        var passwordsCount = 7;
+        var currentPasswordGeneratorName = 'Cvccvc99';
+        var currentPasswordGenerator =
+            passwordGeneratorsService.getById(currentPasswordGeneratorName);
+        
         var getCurrentPasswordGenerator = function() {
-            return passwordGenerator;
+            return currentPasswordGenerator;
         }
         
         var getPasswordsCount = function() {
@@ -55,7 +68,8 @@
         this.getPasswordsCount = getPasswordsCount;
     }
     
-    servicesModule.service('pazzConfigService', [PazzConfigService]);
+    servicesModule.service('pazzConfigService', 
+        ['passwordGeneratorsService', PazzConfigService]);
     
     var PasswordService = function(pazzConfigService) {
         var passwords = [];
