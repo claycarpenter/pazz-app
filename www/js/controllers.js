@@ -27,6 +27,12 @@ angular.module('pazz.app.controllers', ['pazz.app.services'])
     $scope.data.currentPasswordGenerator = pazzConfigService.getCurrentPasswordGeneratorOption();
         
     $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
+        if (selectedPasswordFormat == $scope.data.currentPasswordGenerator) {
+            // User has selected already selected format option, 
+            // don't refresh passwords list or change password format.
+            return;
+        }
+        
         $scope.data.currentPasswordGenerator = selectedPasswordFormat;
         
         pazzConfigService.setCurrentPasswordGeneratorOption(selectedPasswordFormat);
