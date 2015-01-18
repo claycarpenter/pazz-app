@@ -95,7 +95,7 @@
         ['randomConsonantService', 'randomVowelService', 'randomDigitService', PasswordGeneratorsService]);
     
     var PazzConfigService = function(passwordGeneratorsService) {
-        var passwordsCount = 7;
+        var passwordsCount = 6;
         var currentPasswordGeneratorName = 'Cvccvc99';
         var currentPasswordGeneratorOption =
             passwordGeneratorsService.getById(currentPasswordGeneratorName);
@@ -104,11 +104,16 @@
             return currentPasswordGeneratorOption;
         }
         
+        var setCurrentPasswordGeneratorOption = function(newPasswordGeneratorOption) {
+            currentPasswordGeneratorOption = newPasswordGeneratorOption;    
+        }
+        
         var getPasswordsCount = function() {
             return passwordsCount;
         }
         
         this.getCurrentPasswordGeneratorOption = getCurrentPasswordGeneratorOption;
+        this.setCurrentPasswordGeneratorOption = setCurrentPasswordGeneratorOption;
         this.getPasswordsCount = getPasswordsCount;
     }
     

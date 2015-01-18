@@ -20,15 +20,18 @@ angular.module('pazz.app.controllers', ['pazz.app.services'])
 }])
 
 .controller('SettingsCtrl', 
-    ['$scope', 'passwordGeneratorsService', 'pazzConfigService', function($scope, passwordGeneratorsService, pazzConfigService) {
+    ['$scope', 'passwordGeneratorsService', 'pazzConfigService', 'passwordService', function($scope, passwordGeneratorsService, pazzConfigService, passwordService) {
     $scope.data = {};
     
     $scope.data.passwordFormatOptions = passwordGeneratorsService.getAll();
     $scope.data.currentPasswordGenerator = pazzConfigService.getCurrentPasswordGeneratorOption();
         
     $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
-        $scope.data.selectedPasswordFormat = selectedPasswordFormat;    
+        $scope.data.currentPasswordGenerator = selectedPasswordFormat;
         
-        pazzAppModule.state.selectedPasswordFormat = $scope.data.selectedPasswordFormat;
+        pazzConfigService.setCurrentPasswordGeneratorOption(selectedPasswordFormat);
+        
+        // Generate new passwords.
+        passwordService.generateNewPasswords();
     }
 }]);
