@@ -1,30 +1,25 @@
-angular.module('pazz.app.controllers', [])
+angular.module('pazz.app.controllers', ['pazz.app.services'])
 
-.controller('PasswordsCtrl', function($scope) {
+.controller('PasswordsCtrl', 
+    ['$scope', 'passwordGeneratorService', function($scope, passwordGeneratorService) {
     var data = $scope.data = {};
     
-    var pazzAppModule = angular.module('pazz.app');
-    
-    data.passwords = pazzAppModule.state.passwords;
+    // Collect all of the passwords.
+    data.passwords = passwordGeneratorService.getAll();
     
     $scope.doRefresh = function () {
         // Stop the ion-refresher from spinning
-       $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.refreshComplete');
         
-        pazzAppModule.refreshPasswords();    
+        // Generate new passwords.
+        passwordGeneratorService.generateNewPasswords();
         
-        data.passwords = pazzAppModule.state.passwords;
+        // Refresh the scope passwords list.
+        data.passwords = passwordGeneratorService.getAll();
     }
-})
+}])
 
 .controller('SettingsCtrl', function($scope) {
-  var pazzAppModule = angular.module('pazz.app');
-    
-  $scope.data = {
-      passwordFormatOptions: pazzAppModule.settings.passwordFormatOptions,
-      selectedPasswordFormat: pazzAppModule.state.selectedPasswordFormat
-  };
-    
     $scope.onClickPasswordFormatRadio = function(selectedPasswordFormat) {
         $scope.data.selectedPasswordFormat = selectedPasswordFormat;    
         
