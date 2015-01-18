@@ -31,22 +31,31 @@
         ['digitCharSet', RandomCharacterService]);
     
     var PasswordService = function() {
-        var passwords = [
-            'BaCeDi11',
-            'BaCeDi22',
-            'BaCeDi33',
-            'BaCeDi44',
-            'BaCeDi55',
-            'BaCeDi66'
-        ];
+        var passwords = [];
+        var passwordsCount = 6;
+        
+        var passwordGenerator = new function () {
+        
+            this.generateRandomPassword = function() {
+                return "BaCeDi" + 
+                    Math.floor(Math.random() * 10).toString() +
+                    Math.floor(Math.random() * 10).toString();
+            };
+        };
         
         var getAll = function () {
             return passwords;
         };
         
         var generateNewPasswords = function() {
-            for (var i = passwords.length - 2; i >= 0; i--) {
-                var password = passwords.shift();
+            // Clear existing passwords
+            while (passwords.length > 0) {
+                passwords.pop();   
+            }
+            
+            for (var i = 1; i <= passwordsCount; i++) {
+                var password = passwordGenerator.generateRandomPassword();
+                
                 passwords.push(password);
             }
         };
