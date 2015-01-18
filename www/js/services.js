@@ -30,41 +30,85 @@
     servicesModule.service('randomDigitService', 
         ['digitCharSet', RandomCharacterService]);
     
-    var PasswordGeneratorsService = function() {
-                
-        var PasswordGenerator = function () {
+    var PasswordGeneratorsService = function(randomConsonantService, randomVowelService, randomDigitService) {
+        var PasswordGenerator = function (randomValueServices) {
             this.generateRandomPassword = function() {
-                return "BaCeDi" + 
-                    Math.floor(Math.random() * 10).toString() +
-                    Math.floor(Math.random() * 10).toString() +
-                    Math.floor(Math.random() * 10).toString() +
-                    Math.floor(Math.random() * 10).toString();
+                var newPassword = [];
+                
+                for (var i = 0; i < randomValueServices.length; i++) {
+                    var randomValueService = randomValueServices[i];
+                    
+                    newPassword.push(randomValueService.getRandomValue());
+                }
+                
+                return newPassword.join('');
             };
         };
         
+        var passwordGenerators = {
+            'Cvccvc99': {
+                id: 'Cvccvc99',
+                name: 'CVCCVC99',
+                generator: new PasswordGenerator([
+                    randomConsonantService, randomVowelService, randomConsonantService, randomConsonantService, randomVowelService, randomConsonantService, randomDigitService, randomDigitService
+                ])
+            },
+            'Cvcvcv99': {
+                id: 'Cvcvcv99',
+                name: 'CVCVCV99',
+                generator: new PasswordGenerator([
+                    randomConsonantService, randomVowelService, 
+                    randomConsonantService, randomVowelService, 
+                    randomConsonantService, randomVowelService, 
+                    randomDigitService, randomDigitService
+                ])
+            },
+            '9999': {
+                id: '9999',
+                name: '9999',
+                generator: new PasswordGenerator([
+                    randomDigitService, randomDigitService,
+                    randomDigitService, randomDigitService
+                ])
+            },
+            '999999': {
+                id: '999999',
+                name: '999999',
+                generator: new PasswordGenerator([
+                    randomDigitService, randomDigitService,
+                    randomDigitService, randomDigitService,
+                    randomDigitService, randomDigitService
+                ])
+            }
+        };
+        
         this.getById = function(generatorId) {
-            return new PasswordGenerator();  
+            return passwordGenerators[generatorId];  
+        };
+        
+        this.getAll = function() {
+            return passwordGenerators;
         };
     };
     
     servicesModule.service('passwordGeneratorsService', 
-        [PasswordGeneratorsService]);
+        ['randomConsonantService', 'randomVowelService', 'randomDigitService', PasswordGeneratorsService]);
     
     var PazzConfigService = function(passwordGeneratorsService) {
         var passwordsCount = 7;
         var currentPasswordGeneratorName = 'Cvccvc99';
-        var currentPasswordGenerator =
+        var currentPasswordGeneratorOption =
             passwordGeneratorsService.getById(currentPasswordGeneratorName);
         
-        var getCurrentPasswordGenerator = function() {
-            return currentPasswordGenerator;
+        var getCurrentPasswordGeneratorOption = function() {
+            return currentPasswordGeneratorOption;
         }
         
         var getPasswordsCount = function() {
             return passwordsCount;
         }
         
-        this.getCurrentPasswordGenerator = getCurrentPasswordGenerator;
+        this.getCurrentPasswordGeneratorOption = getCurrentPasswordGeneratorOption;
         this.getPasswordsCount = getPasswordsCount;
     }
     
@@ -85,7 +129,8 @@
                 passwords.pop();   
             }
             
-            var passwordGenerator = pazzConfigService.getCurrentPasswordGenerator();
+            var passwordGenerator = 
+                pazzConfigService.getCurrentPasswordGeneratorOption().generator;
             
             for (var i = 1; i <= passwordsCount; i++) {
                 var password = passwordGenerator.generateRandomPassword();
