@@ -30,18 +30,36 @@
     servicesModule.service('randomDigitService', 
         ['digitCharSet', RandomCharacterService]);
     
-    var PasswordService = function() {
-        var passwords = [];
-        var passwordsCount = 6;
+    var PazzConfigService = function() {
+        var passwordsCount = 16;
         
         var passwordGenerator = new function () {
-        
             this.generateRandomPassword = function() {
                 return "BaCeDi" + 
+                    Math.floor(Math.random() * 10).toString() +
+                    Math.floor(Math.random() * 10).toString() +
                     Math.floor(Math.random() * 10).toString() +
                     Math.floor(Math.random() * 10).toString();
             };
         };
+        
+        var getCurrentPasswordGenerator = function() {
+            return passwordGenerator;
+        }
+        
+        var getPasswordsCount = function() {
+            return passwordsCount;
+        }
+        
+        this.getCurrentPasswordGenerator = getCurrentPasswordGenerator;
+        this.getPasswordsCount = getPasswordsCount;
+    }
+    
+    servicesModule.service('pazzConfigService', [PazzConfigService]);
+    
+    var PasswordService = function(pazzConfigService) {
+        var passwords = [];
+        var passwordsCount = pazzConfigService.getPasswordsCount();
         
         var getAll = function () {
             return passwords;
@@ -52,6 +70,8 @@
             while (passwords.length > 0) {
                 passwords.pop();   
             }
+            
+            var passwordGenerator = pazzConfigService.getCurrentPasswordGenerator();
             
             for (var i = 1; i <= passwordsCount; i++) {
                 var password = passwordGenerator.generateRandomPassword();
@@ -65,5 +85,5 @@
         this.generateNewPasswords = generateNewPasswords;
     }
     
-    servicesModule.service('passwordService', PasswordService);
+    servicesModule.service('passwordService', ['pazzConfigService', PasswordService]);
 })();
