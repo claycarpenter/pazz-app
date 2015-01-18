@@ -30,5 +30,31 @@
     servicesModule.service('randomDigitService', 
         ['digitCharSet', RandomCharacterService]);
     
-//    servicesModule.Cvccvc99Generator
+    var PasswordGeneratorService = function() {
+        var passwords = [
+            'BaCeDi11',
+            'BaCeDi22',
+            'BaCeDi33',
+            'BaCeDi44',
+            'BaCeDi55',
+            'BaCeDi66'
+        ];
+        
+        var getAll = function () {
+            return passwords;
+        };
+        
+        var generateNewPasswords = function() {
+            for (var i = passwords.length - 2; i >= 0; i--) {
+                var password = passwords.shift();
+                passwords.push(password);
+            }
+        };
+        
+        // Define external interface.
+        this.getAll = getAll;
+        this.generateNewPasswords = generateNewPasswords;
+    }
+    
+    servicesModule.service('passwordGeneratorService', PasswordGeneratorService);
 })();
