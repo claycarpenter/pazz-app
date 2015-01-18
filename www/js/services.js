@@ -46,6 +46,13 @@
         };
         
         var passwordGenerators = {
+            'Cvcvc99': {
+                id: 'Cvcvc99',
+                name: 'CVCVC99',
+                generator: new PasswordGenerator([
+                    randomConsonantService, randomVowelService, randomConsonantService, randomVowelService, randomConsonantService, randomDigitService, randomDigitService
+                ])
+            },
             'Cvccvc99': {
                 id: 'Cvccvc99',
                 name: 'CVCCVC99',
@@ -60,6 +67,25 @@
                     randomConsonantService, randomVowelService, 
                     randomConsonantService, randomVowelService, 
                     randomConsonantService, randomVowelService, 
+                    randomDigitService, randomDigitService
+                ])
+            },
+            'Vcvc99': {
+                id: 'Vcvc99',
+                name: 'VCVC99',
+                generator: new PasswordGenerator([
+                    randomVowelService, randomConsonantService, 
+                    randomVowelService, randomConsonantService, 
+                    randomDigitService, randomDigitService
+                ])
+            },
+            'Vcvcvc99': {
+                id: 'Vcvcvc99',
+                name: 'VCVCVC99',
+                generator: new PasswordGenerator([
+                    randomVowelService, randomConsonantService, 
+                    randomVowelService, randomConsonantService, 
+                    randomVowelService, randomConsonantService,
                     randomDigitService, randomDigitService
                 ])
             },
@@ -137,10 +163,21 @@
             var passwordGenerator = 
                 pazzConfigService.getCurrentPasswordGeneratorOption().generator;
             
-            for (var i = 1; i <= passwordsCount; i++) {
-                var password = passwordGenerator.generateRandomPassword();
+            while (passwords.length < passwordsCount) {
+                var newPassword = passwordGenerator.generateRandomPassword();
                 
-                passwords.push(password);
+                // Ensure password is unique.
+                var isUnique = true;
+                for (var i = 0; i < passwords.length; i++) {
+                    if (passwords[i] == newPassword) {
+                        isUnique = false;
+                        break;
+                    }
+                }
+                
+                if (isUnique) {
+                    passwords.push(newPassword);
+                }
             }
         };
         
