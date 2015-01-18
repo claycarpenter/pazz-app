@@ -3,13 +3,13 @@
     
     // Define value providers for the three sets of random character 
     // candidates.
-    servicesModule.value('ConsonantCharSet', 
+    servicesModule.value('consonantCharSet', 
         ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z']);
     
-    servicesModule.value('VowelCharSet', 
+    servicesModule.value('vowelCharSet', 
         ['a','e','i','o','u']);
     
-    servicesModule.value('DigitCharSet', 
+    servicesModule.value('digitCharSet', 
         ['0','1','2','3','4','5','6','7','8','9']);
     
     var RandomCharacterService = function(charSet) {
@@ -21,14 +21,14 @@
         this.getRandomValue = getRandomValue;
     }
     
-    servicesModule.service('RandomConsonantService', 
-        ['ConsonantCharSet', RandomCharacterService]);
+    servicesModule.service('randomConsonantService', 
+        ['consonantCharSet', RandomCharacterService]);
     
-    servicesModule.service('RandomVowelService', 
-        ['VowelCharSet', RandomCharacterService]);
+    servicesModule.service('randomVowelService', 
+        ['vowelCharSet', RandomCharacterService]);
     
-    servicesModule.service('RandomDigitService', 
-        ['DigitCharSet', RandomCharacterService]);
+    servicesModule.service('randomDigitService', 
+        ['digitCharSet', RandomCharacterService]);
     
 //    servicesModule.Cvccvc99Generator
 })();
