@@ -120,7 +120,34 @@
     servicesModule.service('passwordGeneratorsService', 
         ['randomConsonantService', 'randomVowelService', 'randomDigitService', PasswordGeneratorsService]);
     
-    var PazzConfigService = function(passwordGeneratorsService) {
+    servicesModule.value('defaultPasswordFormatOptionId', 'Cvccvc99');
+    
+    var AppStateStoreService = function() {
+        var passwordFormatOptionId;
+        var store = window.localStorage;
+
+        this.persist = function() {
+            var passwordFormatOptionIdJson = JSON.stringify(passwordFormatOptionId);
+            store.setItem('pazz.passwordFormatOptionId', passwordFormatOptionIdJson);
+        };
+        
+        this.read = function() {
+            var passwordFormatOptionIdJson = store.getItem('pazz.passwordFormatOptionId');
+            passwordFormatOptionId = JSON.parse(passwordFormatOptionIdJson);
+        };
+        
+        this.setPasswordFormatOptionId = function(newPasswordFormatOptionId) {
+            passwordFormatOptionId = newPasswordFormatOptionId;
+        };
+        
+        this.getPasswordFormatOptionId = function() {
+            return passwordFormatOptionId;
+        };
+    };
+    
+    servicesModule.service('appStateStoreService', [AppStateStoreService]);
+    
+    var PazzConfigService = function(passwordGeneratorsService, appStateStoreService) {
         var passwordsCount = 6;
         var currentPasswordGeneratorName = 'Cvccvc99';
         var currentPasswordGeneratorOption =
@@ -132,6 +159,10 @@
         
         var setCurrentPasswordGeneratorOption = function(newPasswordGeneratorOption) {
             currentPasswordGeneratorOption = newPasswordGeneratorOption;    
+            
+            appStateStoreService.setPasswordFormatOptionId(
+                currentPasswordGeneratorOption.id);
+            appStateStoreService.persist();
         }
         
         var getPasswordsCount = function() {
@@ -144,9 +175,9 @@
     }
     
     servicesModule.service('pazzConfigService', 
-        ['passwordGeneratorsService', PazzConfigService]);
+        ['passwordGeneratorsService', 'appStateStoreService', PazzConfigService]);
     
-    var PasswordService = function(pazzConfigService) {
+    var PasswordService = function(pazzConfigService, appStateStoreService) {
         var passwords = [];
         var passwordsCount = pazzConfigService.getPasswordsCount();
         
@@ -186,5 +217,25 @@
         this.generateNewPasswords = generateNewPasswords;
     }
     
-    servicesModule.service('passwordService', ['pazzConfigService', PasswordService]);
+    servicesModule.service('passwordService', 
+        ['pazzConfigService', 'appStateStoreService', PasswordService]);
+    
+    servicesModule.run(
+        ['appStateStoreService', 'defaultPasswordFormatOptionId', 'pazzConfigService', 'passwordGeneratorsService', function(appStateStoreService, defaultPasswordFormatOptionId, pazzConfigService, passwordGeneratorsService) {
+        console.log('pazz.app.services: run()'); 
+        
+        // Read from state storage.
+        appStateStoreService.read();
+        
+        // Retrieve the current password format option (id).
+        var passwordFormatOptionId = appStateStoreService.getPasswordFormatOptionId();
+        
+        if (!passwordFormatOptionId) {
+            passwordFormatOptionId = defaultPasswordFormatOptionId;    
+        }
+        console.log('passwordFormatOptionId: ' + passwordFormatOptionId);
+            
+        var passwordFormatOption = passwordGeneratorsService.getById(passwordFormatOptionId);
+        pazzConfigService.setCurrentPasswordGeneratorOption(passwordFormatOption);
+    }]);
 })();
