@@ -133,25 +133,35 @@
     servicesModule.value('defaultPasswordFormatOptionId', 'Cvccvc99');
     
     var AppStateStoreService = function() {
-        var passwordFormatOptionId;
         var store = window.localStorage;
+        
+        // Create a default app state model.
+        var appState = {
+            passwordFormatOptionId: 'Cvcvc99',
+            passwords: []
+        };
 
         this.persist = function() {
-            var passwordFormatOptionIdJson = JSON.stringify(passwordFormatOptionId);
-            store.setItem('pazz.passwordFormatOptionId', passwordFormatOptionIdJson);
+            var appStateJson = JSON.stringify(appState);
+            store.setItem('pazz.appState.v1', appStateJson);
         };
         
         this.read = function() {
-            var passwordFormatOptionIdJson = store.getItem('pazz.passwordFormatOptionId');
-            passwordFormatOptionId = JSON.parse(passwordFormatOptionIdJson);
+            var appStateJson = store.getItem('pazz.appState.v1');
+            var storageAppState = JSON.parse(appStateJson);
+            
+            if (storageAppState) {
+                appState.passwordFormatOptionId = storageAppState.passwordFormatOptionId;
+                appState.passwords = storageAppState.passwords;
+            }
         };
         
         this.setPasswordFormatOptionId = function(newPasswordFormatOptionId) {
-            passwordFormatOptionId = newPasswordFormatOptionId;
+            appState.passwordFormatOptionId = newPasswordFormatOptionId;
         };
         
         this.getPasswordFormatOptionId = function() {
-            return passwordFormatOptionId;
+            return appState.passwordFormatOptionId;
         };
     };
     
