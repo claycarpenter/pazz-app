@@ -163,6 +163,22 @@
         this.getPasswordFormatOptionId = function() {
             return appState.passwordFormatOptionId;
         };
+        
+        this.setPasswords = function(newPasswords) {
+            // Clear out existing passwords
+            while (appState.passwords.length) {
+                appState.passwords.pop();   
+            };
+            
+            for (var i = 0; i < newPasswords.length; i++) {
+                var newPassword = newPasswords[i];
+                appState.passwords.push(newPassword);    
+            };
+        };
+        
+        this.getPasswords = function() {
+            return appState.passwords;    
+        }
     };
     
     servicesModule.service('appStateStoreService', [AppStateStoreService]);
@@ -202,41 +218,58 @@
     
     var PasswordService = function(pazzConfigService, appStateStoreService) {
         var passwords = [];
+        var test = {};
         var passwordsCount = pazzConfigService.getPasswordsCount();
         
         var getAll = function () {
             return passwords;
         };
         
-        var generateNewPasswords = function() {
-            // Clear existing passwords
-            while (passwords.length > 0) {
+        var setAll = function (newPasswords) {
+            // Clear out existing passwords
+            while (passwords.length) {
                 passwords.pop();   
-            }
+            };
             
+            for (var i = 0; i < newPasswords.length; i++) {
+                var newPassword = newPasswords[i];
+                passwords.push(newPassword);    
+            };
+            
+            // Update passwords store
+            appStateStoreService.setPasswords(passwords);
+            appStateStoreService.persist();
+        };
+        
+        var generateNewPasswords = function() {
             var PasswordFormat = 
                 pazzConfigService.getCurrentPasswordFormatOption().generator;
             
-            while (passwords.length < passwordsCount) {
+            var newPasswords = [];
+            while (newPasswords.length < passwordsCount) {
                 var newPassword = PasswordFormat.generateRandomPassword();
                 
                 // Ensure password is unique.
                 var isUnique = true;
-                for (var i = 0; i < passwords.length; i++) {
-                    if (passwords[i] == newPassword) {
+                for (var i = 0; i < newPasswords.length; i++) {
+                    if (newPasswords[i] == newPassword) {
                         isUnique = false;
                         break;
                     }
                 }
                 
                 if (isUnique) {
-                    passwords.push(newPassword);
+                    newPasswords.push(newPassword);
                 }
             }
+            
+            // Store the new passwords.
+            setAll(newPasswords);
         };
         
         // Define external interface.
         this.getAll = getAll;
+        this.setAll = setAll;
         this.generateNewPasswords = generateNewPasswords;
     }
     
@@ -244,9 +277,7 @@
         ['pazzConfigService', 'appStateStoreService', PasswordService]);
     
     servicesModule.run(
-        ['appStateStoreService', 'defaultPasswordFormatOptionId', 'pazzConfigService', 'passwordFormatsService', function(appStateStoreService, defaultPasswordFormatOptionId, pazzConfigService, passwordFormatsService) {
-        console.log('pazz.app.services: run()'); 
-        
+        ['appStateStoreService', 'defaultPasswordFormatOptionId', 'pazzConfigService', 'passwordFormatsService', 'passwordService', function(appStateStoreService, defaultPasswordFormatOptionId, pazzConfigService, passwordFormatsService, passwordService) {
         // Read from state storage.
         appStateStoreService.read();
         
@@ -256,9 +287,17 @@
         if (!passwordFormatOptionId) {
             passwordFormatOptionId = defaultPasswordFormatOptionId;    
         }
-        console.log('passwordFormatOptionId: ' + passwordFormatOptionId);
             
         var passwordFormatOption = passwordFormatsService.getById(passwordFormatOptionId);
         pazzConfigService.setCurrentPasswordFormatOptionId(passwordFormatOption.id);
+            
+        // Retrieve any stored passwords, if available.
+        var storedPasswords = appStateStoreService.getPasswords();
+        if (storedPasswords && storedPasswords.length) {
+            passwordService.setAll(storedPasswords);    
+        } else {
+            // No passwords retrieved, generate new passwords.
+            passwordService.generateNewPasswords();
+        }
     }]);
 })();
