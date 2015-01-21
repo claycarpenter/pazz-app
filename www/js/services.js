@@ -79,6 +79,16 @@
                     randomDigitService, randomDigitService
                 ])
             },
+            'Vcvcv99': {
+                id: 'Vcvcv99',
+                name: 'VCVCV99',
+                generator: new PasswordGenerator([
+                    randomVowelService, randomConsonantService, 
+                    randomVowelService, randomConsonantService, 
+                    randomVowelService,
+                    randomDigitService, randomDigitService
+                ])
+            },
             'Vcvcvc99': {
                 id: 'Vcvcvc99',
                 name: 'VCVCVC99',
